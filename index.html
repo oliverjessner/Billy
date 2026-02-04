@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billly</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img class="brand-logo" src="/logo.png" alt="Billly logo" />
+          <span class="logo">Billly</span>
+          <span class="badge">Invoice Intelligence</span>
+        </div>
+        <div class="status" id="status-indicator">
+          <span class="dot"></span>
+          <span class="text">Ready</span>
+        </div>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab active" data-view="dashboard">Dashboard</button>
+        <button class="tab" data-view="invoices">Invoices</button>
+        <button class="tab" data-view="settings">Settings</button>
+      </nav>
+
+      <main class="content">
+        <section id="view-dashboard" class="view active">
+          <div class="toolbar">
+            <div class="toolbar-group">
+              <label for="month-select">Month</label>
+              <input id="month-select" type="month" />
+            </div>
+            <button class="primary" id="refresh-dashboard">Refresh</button>
+          </div>
+
+          <div class="kpi-grid" id="kpi-grid"></div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <h3>Monthly Trend</h3>
+              <canvas id="chart-monthly"></canvas>
+            </div>
+            <div class="panel">
+              <h3>Profit Trend</h3>
+              <canvas id="chart-profit"></canvas>
+            </div>
+          </div>
+
+          <div class="panel-grid">
+            <div class="panel">
+              <h3>Latest Revenue</h3>
+              <ul class="list" id="recent-revenue"></ul>
+            </div>
+            <div class="panel">
+              <h3>Latest Payables</h3>
+              <ul class="list" id="recent-payables"></ul>
+            </div>
+            <div class="panel">
+              <h3>Open Payables</h3>
+              <div class="open-payables" id="open-payables"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="view-invoices" class="view">
+          <div class="toolbar">
+            <div class="segmented" id="invoice-category">
+              <button class="segment active" data-category="revenue">Revenue</button>
+              <button class="segment" data-category="payable">Payables</button>
+            </div>
+            <button class="primary" id="reprocess-visible">Reprocess</button>
+          </div>
+
+          <div class="invoices-layout">
+            <div class="panel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="invoice-list"></tbody>
+              </table>
+            </div>
+
+            <div class="panel detail" id="invoice-detail">
+              <div class="detail-header">
+                <h3>Details</h3>
+                <div class="detail-actions">
+                  <button class="ghost" id="open-pdf">Open File</button>
+                  <button class="primary" id="reprocess-single">Reprocess</button>
+                </div>
+              </div>
+              <div class="detail-body" id="detail-body">
+                <p class="muted">Select an invoice from the list.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="view-settings" class="view">
+          <div class="panel settings">
+            <h3>Settings</h3>
+            <div class="form-grid">
+              <div class="field">
+                <label>Revenue Folder</label>
+                <div class="field-row">
+                  <input id="revenue-folder" type="text" placeholder="/path/to/revenue" />
+                  <button class="ghost" id="pick-revenue-folder">Select</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>Payables Folder</label>
+                <div class="field-row">
+                  <input id="payable-folder" type="text" placeholder="/path/to/payables" />
+                  <button class="ghost" id="pick-payable-folder">Select</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>OpenAI API Key</label>
+                <input id="openai-key" type="password" placeholder="sk-..." />
+              </div>
+              <div class="field">
+                <label>OCR Language</label>
+                <select id="ocr-language">
+                  <option value="deu">German</option>
+                  <option value="eng">English</option>
+                </select>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="primary" id="save-settings">Save</button>
+              <button class="ghost" id="test-openai">Test Key</button>
+              <button class="ghost" id="reprocess-all">Reprocess all PDFs</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

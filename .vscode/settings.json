@@ -1,0 +1,6 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "cargo install": true,
+        "npm create": true
+    }
+}
